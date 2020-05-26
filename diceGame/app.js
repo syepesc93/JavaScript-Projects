@@ -11,8 +11,12 @@ GAME RULES:
 */
 
 
+// creating global variables
+var scores, roundScore, activePlayer, gamePlaying;
+
 ////////// init web site
-window.addEventListener('load', initializeWebPage);
+initializeWebPage();
+
 
 ////////// web site functionality
 // adding functionality to 'roll dice' button
@@ -46,34 +50,32 @@ document.querySelector('.btn-hold').addEventListener('click', function() {
         scores[activePlayer] += roundScore;
 
         // update UI
-        document.querySelector('#socre' + activePlayer).textContent = scores[activePlayer];
-        nextPlayer();
+        document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
 
         // check if player won the game
         if (scores[activePlayer] >= 100) {
-            document.querySelector('.player-' + activePlayer + '0-panel').classList.add('winner');
-            document.querySelector('.player-' + activePlayer + '0-panel').classList.remove('remove');
+            document.querySelector('#name-' + activePlayer).textContent = "Winner";
+            document.querySelector('.dice').style.display = 'none';
+            document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner');
+            document.querySelector('.player-' + activePlayer + '-panel').classList.remove('remove');
+            gamePlaying = false;
         } else {
             nextPlayer();
-            gamePlaying = false;
         }
-    } else {
-        // next player
-        nextPlayer;
     }
 });
 
 // adding functionality to the 'new game' button
-document.querySelector('btn-new').addEventListener('click', initializeWebPage);
+document.querySelector('.btn-new').addEventListener('click', initializeWebPage);
 
 
 ////////// methods - functions
 function initializeWebPage() {
     // creating global variables
-    var scores = [0, 0];
-    var roundScore = 0;
-    var activePlayer = 0;
-    var gamePlaying = true;
+    scores = [0, 0];
+    roundScore = 0;
+    activePlayer = 0;
+    gamePlaying = true;
 
     // setting up the 'board of the game'
     document.querySelector('.dice').style.display = 'none';
@@ -83,15 +85,15 @@ function initializeWebPage() {
     document.getElementById('current-1').textContent = '0';
 
     // setting player names
-    document.querySelector('name-0').textContent = 'PLAYER 1';
-    document.querySelector('name-1').textContent = 'PLAYER 1';
+    document.getElementById('name-0').textContent = 'PLAYER 1';
+    document.getElementById('name-1').textContent = 'PLAYER 2';
 
-    document.querySelector('player-0-panel').classList.remove('winner');
-    document.querySelector('player-1-panel').classList.remove('active');
-    document.querySelector('player-0-panel').classList.remove('winner');
-    document.querySelector('player-1-panel').classList.remove('active');
-    document.querySelector('player-0-panel').classList.add('active');
-};
+    document.querySelector('.player-0-panel').classList.remove('winner');
+    document.querySelector('.player-1-panel').classList.remove('winner');
+    document.querySelector('.player-0-panel').classList.remove('active');
+    document.querySelector('.player-1-panel').classList.remove('active');
+    document.querySelector('.player-0-panel').classList.add('active');
+}
 
 function nextPlayer() {
     // next player
@@ -106,4 +108,4 @@ function nextPlayer() {
     document.querySelector('.player-0-panel').classList.toggle('active'); // toggles between active the class or not
     document.querySelector('.player-1-panel').classList.toggle('active');
     document.querySelector('.dice').style.display = 'none';
-};
+}
