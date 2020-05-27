@@ -2,6 +2,24 @@
 *** GENERAL
 **********************************************/
 
+.final-score {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 520px;
+    color: #555;
+    font-size: 18px;
+    font-family: 'lato';
+    text-align: center;
+    padding: 10px;
+    width: 160px;
+    text-transform: uppercase;
+}
+
+.final-score:focus {
+    outline: none;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -158,10 +176,20 @@ i {
 
 .dice {
     position: absolute;
-    left: 50%;
-    top: 178px;
     transform: translateX(-50%);
+    left: 50%;
+    top: 180px;
     height: 100px;
+    box-shadow: 0px 10px 60px rgba(0, 0, 0, 0.2);
+}
+
+.dice2 {
+    position: absolute;
+    left: 50%;
+    top: 300px;
+    transform: translateX(-50%);
+    height: 40px;
+    width: 40px;
     box-shadow: 0px 10px 60px rgba(0, 0, 0, 0.10);
 }
 
