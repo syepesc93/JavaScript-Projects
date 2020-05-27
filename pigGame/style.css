@@ -2,6 +2,14 @@
 *** GENERAL
 **********************************************/
 
+.player-panel-message {
+    text-align: center;
+    font-size: 20px;
+    font-weight: 100;
+    color: grey;
+    margin-bottom: 50px;
+}
+
 .final-score {
     position: absolute;
     left: 50%;
@@ -83,7 +91,7 @@ body {
     font-size: 80px;
     font-weight: 100;
     color: #EB4D4D;
-    margin-bottom: 130px;
+    margin-bottom: 20px;
 }
 
 .active {
@@ -107,7 +115,7 @@ body {
     background-color: #EB4D4D;
     color: #fff;
     width: 40%;
-    margin: 0 auto;
+    margin: auto;
     padding: 12px;
     text-align: center;
 }
