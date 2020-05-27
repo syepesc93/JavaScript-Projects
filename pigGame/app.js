@@ -31,7 +31,7 @@ CHANGE CSS:
 */
 
 // initialize web site
-var scores, roundScore, activePlayer, gamePlaying, lastDiceValue;
+var scores, roundScore, activePlayer, gamePlaying, lastDiceValue, lastDice2Value;
 init();
 
 
@@ -50,21 +50,21 @@ document.querySelector('.btn-roll').addEventListener('click', function() {
         dice2DOM.style.display = 'block';
         dice2DOM.src = 'dice-' + dice2 + '.png';
 
-
         //3. Check GAME RULES
         if (dice == 1 || dice2 == 1) {
             nextPlayer()
-        } else if (lastDiceValue == 6 && dice == 6) {
+        } else if ((lastDiceValue == 6 || lastDice2Value == 6) && (dice == 6 || dice2 == 6)) {
             // player loose score
             scores[activePlayer] = 0;
             document.getElementById('score-' + activePlayer).textContent = '0';
             nextPlayer();
         } else {
             //Add score
-            roundScore += dice;
+            roundScore += (dice + dice2);
             document.querySelector('#current-' + activePlayer).textContent = roundScore;
         }
         lastDiceValue = dice;
+        lastDice2Value = dice2;
     }
 });
 
@@ -111,6 +111,7 @@ function init() {
     roundScore = 0;
     gamePlaying = true;
     lastDiceValue = 0;
+    lastDice2Value = 0;
 
     document.querySelector('.dice').style.display = 'none';
     document.querySelector('.dice2').style.display = 'none';
