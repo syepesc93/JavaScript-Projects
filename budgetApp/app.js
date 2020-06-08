@@ -8,7 +8,21 @@ var budgetController = (function() { // using immediate function invoke IIFE
         this.id = id;
         this.description = description;
         this.value = value;
+        this.percentage = -1;
     };
+
+    Expense.prototype.calcPercentage = function(totalIncome) {
+        if (totalIncome > 0) {
+            this.percentage = Math.floor((this.value / totalIncome) * 100);
+        } else {
+            this.percentage = -1;
+        }
+    }
+
+    Expense.prototype.getPercentage = function() {
+        return this.percentage;
+    };
+
     var Income = function(id, description, value) {
         this.id = id;
         this.description = description;
@@ -83,6 +97,19 @@ var budgetController = (function() { // using immediate function invoke IIFE
             }
         },
 
+        calculatePercentges: function() {
+            data.allItems.exp.forEach(function(current) {
+                current.calcPercentage(data.totals.inc);
+            });
+        },
+
+        getPercentage: function() {
+            var allPercentages = data.allItems.exp.map(function(current) {
+                return current.getPercentage();
+            });
+            return allPercentages;
+        },
+
         getBudget: function() {
             return {
                 budget: data.budget,
@@ -144,7 +171,7 @@ var UIController = (function() {
         },
 
         deleteListItem: function(selectorID) {
-            var element = document.getElementById(selectorID).parentNode.removeChild();
+            var element = document.getElementById(selectorID);
             element.parentNode.removeChild(element);
         },
 
@@ -184,10 +211,23 @@ var controller = (function(budgetCtrl, UICtrl) {
     var updateBudget = function() {
         // 1. calculate the budget
         budgetController.calculateBudget();
+
         // 2. return the budget
         var budget = budgetController.getBudget();
+
         // 3. display the budget on the UI
         UICtrl.displayBudget(budget);
+    };
+
+    var updatePercentages = function() {
+        // 1. calculate percentages
+        budgetController.calculatePercentges();
+
+        // 2. read percentages from budget controller
+        var percentages = budgetController.getPercentage();
+
+        // 3. update UI
+
     };
 
     var ctrlAddItem = function() {
@@ -198,12 +238,18 @@ var controller = (function(budgetCtrl, UICtrl) {
         if (input.description !== "" && !isNaN(input.value) && input.value > 0) {
             // 2. add the item to the budget controller
             newItem = budgetCtrl.addItem(input.type, input.description, input.value);
+
             // 3. add the new item to the UI
             UICtrl.addListItem(newItem, input.type);
+
             // 4. clear fields
             UICtrl.clearFields();
+
             // 5. calculate and update budget
             updateBudget();
+
+            // 6. calculate and update percentages
+            updatePercentages();
         }
     };
 
@@ -218,27 +264,33 @@ var controller = (function(budgetCtrl, UICtrl) {
         }
         // 1. delete item from data structure
         budgetController.deleteItem(type, ID);
+
         // 2. delete the item from the UI
         UICtrl.deleteListItem(itemID);
+
         // 3. update and show the new budget
         updateBudget();
     };
 
     var setupEventListeners = function() {
         var DOM = UICtrl.getDOMstrings();
+
         // TO DO List when clicking the button
         document.querySelector(DOM.inputBtn).addEventListener('click', ctrlAddItem);
+
         // TO DO List when hitting enter key (keycode: 13)
         document.addEventListener('keypress', function(event) {
             if (event.keyCode === 13 || event.which === 13) {
                 ctrlAddItem();
             }
         });
+
         // select the DOM element <tag> that we are clicking on
         document.querySelector(DOM.container).addEventListener('click', ctrlDeleteItem);
     };
 
     return {
+        // initialize web site and clean the UI
         init: function() {
             console.log('Application has started.');
             UICtrl.displayBudget({
@@ -248,6 +300,8 @@ var controller = (function(budgetCtrl, UICtrl) {
                 percentage: '---'
             });
             console.log('UI Initialize.');
+
+            // setting up web site events
             setupEventListeners();
         }
     }
