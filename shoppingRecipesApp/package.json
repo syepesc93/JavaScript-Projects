@@ -4,7 +4,7 @@
     "description": "Search and shop ingredients for any recipe! - Web App to practice API and Modern JS",
     "main": "index.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "dev": "webpack"
     },
     "author": "Santiago Yepes",
     "license": "ISC",
@@ -12,6 +12,7 @@
         "jquery": "^3.5.1"
     },
     "devDependencies": {
-        "webpack": "^4.43.0"
+        "webpack": "^4.43.0",
+        "webpack-cli": "^3.3.12"
     }
 }
