@@ -4,15 +4,23 @@
     "description": "Search and shop ingredients for any recipe! - Web App to practice API and Modern JS",
     "main": "index.js",
     "scripts": {
-        "dev": "webpack"
+        "dev": "webpack --mode development",
+        "build": "webpack --mode production",
+        "start": "webpack-dev-server --mode development --open"
     },
     "author": "Santiago Yepes",
     "license": "ISC",
     "dependencies": {
+        "babel-polyfill": "^6.26.0",
         "jquery": "^3.5.1"
     },
     "devDependencies": {
+        "@babel/core": "^7.11.1",
+        "@babel/preset-env": "^7.11.0",
+        "babel-loader": "^8.1.0",
+        "html-webpack-plugin": "^4.3.0",
         "webpack": "^4.43.0",
-        "webpack-cli": "^3.3.12"
+        "webpack-cli": "^3.3.12",
+        "webpack-dev-server": "^3.11.0"
     }
 }
