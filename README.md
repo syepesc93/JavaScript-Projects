@@ -1,5 +1,5 @@
 # JavaScript-Projects
-This repository contains projects made to learn, practice and improve coding skills.
+This repository contains projects made to learn, practice and improve JS coding skills.
 
 ## Version Semantic
 semantic v#.#.#
