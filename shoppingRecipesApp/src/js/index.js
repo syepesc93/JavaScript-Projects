@@ -18,7 +18,7 @@ GLOBAL STATE OF THE APP
 
 const state = {};
 
-const controlSearch = () => {
+const controlSearch = async() => {
     // 1. get query from view
     const query = 'pizza'
 
@@ -29,15 +29,14 @@ const controlSearch = () => {
         // 3. prepare UI for results
 
         // 4. search for recipes
-        state.search.getResults();
+        await state.search.getResults();
+
+        // 5. render results on UI
+        console.log(state.search.result);
     }
 }
 
 document.querySelector('.search').addEventListener('submit', e => {
-    e.preventDefault();
+    e.preventDefault(); // stop realoading the page
     controlSearch();
 });
-
-
-const search = new Search('pizza');
-console.log(search);
