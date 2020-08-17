@@ -22,9 +22,9 @@ module.exports = {
     // babel loader 
     module: {
         rules: [{
-            // evaluate and convrt all js files
+            // evaluate and convrt all js files to ES5
             test: /\.js$/,
-            // exclude to evaluate and convert js files that are not from out project
+            // exclude to evaluate and convert js files to ES5 that are not from out project
             exclude: /node_modules/,
             use: {
                 loader: 'babel-loader'
