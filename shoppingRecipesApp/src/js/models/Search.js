@@ -4,7 +4,8 @@ export default class Search {
     constructor(query) {
         this.query = query;
     }
-    async getResults(query) {
+
+    async getResults() {
         const proxy = ''; // this is the url from the web that we request data from
         const key = '';
         try {
