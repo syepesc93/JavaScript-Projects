@@ -11,7 +11,7 @@ export const clearResults = () => {
 
 const renderRecipe = recipe => {
     // HTML chunk of code to be rendered on the recipes list
-    const renderedElement = `
+    const renderListElement = `
     <li>
         <a class="results__link results__link--active" href="#${recipe.recipe_id}">
             <figure class="results__fig">
@@ -24,7 +24,7 @@ const renderRecipe = recipe => {
         </a>
     </li>
     `;
-    DOMelements.searchResList.insertAdjacentHTML('beforeend', renderedElement);
+    DOMelements.searchResList.insertAdjacentHTML('beforeend', renderListElement);
 }
 
 export const renderResults = recipesObject => {
