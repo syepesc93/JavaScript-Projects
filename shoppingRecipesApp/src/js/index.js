@@ -38,12 +38,25 @@ const controlSearch = async() => {
         await state.search.getResults();
 
         // 5. render results on UI
-        searchView.renderResults(state.search.result);
         clearLoaderSpinner();
+        searchView.renderResults(state.search.result);
     }
 }
 
 DOMelements.searchForm.addEventListener('submit', e => {
     e.preventDefault(); // stop realoading the page
     controlSearch();
+});
+
+DOMelements.searchResPages.addEventListener('click', e => {
+    // closest target all the button instead of only the thext or the icon
+    const btn = e.target.closest('.btn-inline');
+    console.log(e.target);
+
+    if (btn) {
+        const goToPage = parseInt(btn.dataset.goto, 10);
+        searchView.clearResults();
+        searchView.renderResults(state.search.result, goToPage);
+        console.log(goToPage);
+    }
 });
