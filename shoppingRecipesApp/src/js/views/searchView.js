@@ -9,15 +9,6 @@ export const clearResults = () => {
     DOMelements.searchResList.innerHTML = '';
 };
 
-const limitRecipeTitle = (recipe, limit = 17) => {
-    if (title.length > limit) {
-        title.split(' ').reduce((acc, cur) => {
-
-        }, 0);
-    }
-    return title;
-};
-
 const renderRecipe = recipe => {
     // HTML chunk of code to be rendered on the recipes list
     const renderListElement = `

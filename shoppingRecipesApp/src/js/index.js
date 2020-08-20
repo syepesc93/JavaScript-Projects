@@ -1,6 +1,6 @@
 import Search from './models/Search';
 import * as searchView from './views/searchView';
-import { DOMelements } from './views/base';
+import { DOMelements, renderLoaderSpinner, clearLoaderSpinner } from './views/base';
 
 /* 
 First of all we need to install NPM 
@@ -32,12 +32,14 @@ const controlSearch = async() => {
         // 3. prepare UI for results
         searchView.clearInput();
         searchView.clearResults();
+        renderLoaderSpinner(DOMelements.searchRes)
 
         // 4. search for recipes
         await state.search.getResults();
 
         // 5. render results on UI
         searchView.renderResults(state.search.result);
+        clearLoaderSpinner();
     }
 }
 
