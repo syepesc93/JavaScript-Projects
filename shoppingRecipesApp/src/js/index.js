@@ -1,6 +1,7 @@
 import Search from './models/Search';
 import Recipe from './models/Recipe';
 import * as searchView from './views/searchView';
+import * as recipeView from './views/recipeView';
 import { DOMelements, renderLoaderSpinner, clearLoaderSpinner } from './views/base';
 
 /* 
@@ -77,6 +78,8 @@ const controlRecipe = async() => {
 
     if (id) {
         // prepare UI for changes
+        recipeView.clearRecipe();
+        renderLoaderSpinner(DOMelements.recipe);
 
         // Create new recipe object
         state.recipe = new Recipe(id);
@@ -91,6 +94,8 @@ const controlRecipe = async() => {
             state.recipe.calcServings();
 
             // render recipe
+            clearLoaderSpinner();
+            recipeView.renderRecipe(state.recipe);
             console.log(state.recipe);
         } catch (error) {
             console.log(error);
