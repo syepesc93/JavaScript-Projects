@@ -44,7 +44,7 @@ export default class Recipe {
             })
 
             // 2. remove parentheses
-            ingerdient = ingerdient.replace(/ *\([^)]*\) */g, " ");
+            ingredient = ingredient.replace(/ *\([^)]*\) */g, " ");
 
             // 3. parse ingredients into count
             const ingredientsArray = ingredient.split(' ');
@@ -54,6 +54,20 @@ export default class Recipe {
             let objIngredients;
             if (unitIndex > -1) {
                 // there is a unit
+                const arrayCount = ingredientsArray.slice(0, unitIndex);
+
+                let count;
+                if (arrayCount.length === 1) {
+                    count = eval(ingredientsArray[0].replace('-', '+'));
+                } else {
+                    count = eval(ingredientsArray.slice(0, unitIndex).join('+'));
+                }
+
+                objIngredients = {
+                    count: count,
+                    unit: ingredientsArray[unitIndex],
+                    ingredient: ingredientsArray.slice(unitIndex + 1).join(' ')
+                }
 
             } else if (parseInt(ingredientsArray[0], 10)) {
                 // there is no unit, but first element is a number
@@ -71,8 +85,6 @@ export default class Recipe {
                     ingredient: ingredient
                 }
             }
-
-
             return ingredient;
         });
         this.ingredients = newIngredients;
