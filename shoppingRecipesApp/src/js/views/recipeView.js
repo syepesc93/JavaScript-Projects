@@ -3,8 +3,7 @@ import { Fraction } from 'fractional';
 
 const formatCount = count => {
     if (count) {
-        // count = 2.5 --> 5/2 --> 2 1/2
-        // count = 0.5 --> 1/2
+        // decimal counts goes to the upper intenger
         const newCount = Math.round(count * 10000) / 10000;
         const [int, dec] = newCount.toString().split('.').map(el => parseInt(el, 10));
 
@@ -101,7 +100,7 @@ export const renderRecipe = recipe => {
             <h2 class="heading-2">How to cook it</h2>
             <p class="recipe__directions-text">
                 This recipe was carefully designed and tested by
-                <span class="recipe__by">${recipe.author}</span>. Please check out directions at their website.
+                <span class="recipe__by">${recipe.publisher}</span>. Please check out directions at their website.
             </p>
             <a class="btn-small recipe__btn" href="${recipe.url}" target="_blank">
                 <span>Directions</span>
